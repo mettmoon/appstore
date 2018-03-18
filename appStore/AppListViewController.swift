@@ -97,7 +97,12 @@ class AppListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Detail", let cell = sender as? UITableViewCell, let indexPath = self.tableView.indexPath(for: cell), let vc = segue.destination as? AppDetailViewController {
             let info = self.item(for: indexPath)
-            vc.appInfoItem = info
+            vc.appListInfo = info
+            if let urlString = info.image.last?.text, let url = URL(string:urlString) {
+                if let image = self.images[url] {
+                    vc.appIconImage = image
+                }
+            }
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

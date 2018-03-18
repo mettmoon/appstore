@@ -30,3 +30,12 @@ public extension UIImage {
 
 }
 
+extension CALayer {
+    func appleIconization(){
+        self.masksToBounds = true
+        self.borderWidth = 1 / UIScreen.main.scale
+        self.borderColor = UIColor.lightGray.cgColor
+        self.cornerRadius = self.frame.size.width * 0.19
+        
+    }
+}
