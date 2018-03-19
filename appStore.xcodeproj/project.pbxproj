@@ -30,6 +30,8 @@
 		3697027C205A7388002D6531 /* AppDetailTopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */; };
 		D0355BF8205EA706004D0582 /* AppDetailRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355BF7205EA706004D0582 /* AppDetailRatingTableViewCell.swift */; };
 		D0355BFE205FC7F8004D0582 /* SerialOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355BFD205FC7F8004D0582 /* SerialOperationQueue.swift */; };
+		D0355C00205FCAA1004D0582 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355BFF205FCAA1004D0582 /* TitleView.swift */; };
+		D0355C02205FD11D004D0582 /* ShopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355C01205FD11D004D0582 /* ShopButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailTopTableViewCell.swift; sourceTree = "<group>"; };
 		D0355BF7205EA706004D0582 /* AppDetailRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailRatingTableViewCell.swift; sourceTree = "<group>"; };
 		D0355BFD205FC7F8004D0582 /* SerialOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SerialOperationQueue.swift; path = appStore/Utilities/SerialOperationQueue.swift; sourceTree = SOURCE_ROOT; };
+		D0355BFF205FCAA1004D0582 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		D0355C01205FD11D004D0582 /* ShopButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 				366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */,
 				366338C6205F5A4C001F31DD /* AppDetailCopyrightTableViewCell.swift */,
 				3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */,
+				D0355BFF205FCAA1004D0582 /* TitleView.swift */,
+				D0355C01205FD11D004D0582 /* ShopButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,7 +228,9 @@
 				366338B7205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift in Sources */,
 				36126F37205F9ABE00B5D62B /* TopLineProtocol.swift in Sources */,
 				366338BB205F594D001F31DD /* AppDetailUpdateTableViewCell.swift in Sources */,
+				D0355C02205FD11D004D0582 /* ShopButtonView.swift in Sources */,
 				366338C1205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift in Sources */,
+				D0355C00205FCAA1004D0582 /* TitleView.swift in Sources */,
 				366E32E22059EB7900948296 /* AppDelegate.swift in Sources */,
 				366338C3205F59F4001F31DD /* AppDetailInformationTableViewCell.swift in Sources */,
 				366E32F42059F04A00948296 /* AppListViewController.swift in Sources */,

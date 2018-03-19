@@ -19,15 +19,62 @@ class AppDetailViewController: UIViewController {
     var expandItems:[String: Bool] = [:]
     let compassImage:UIImage = #imageLiteral(resourceName: "compass").withRenderingMode(.alwaysTemplate)
     let handImage:UIImage = #imageLiteral(resourceName: "hand_filled").withRenderingMode(.alwaysTemplate)
-    
+    var showIconOnNavigationBar = false{
+        didSet{
+            if showIconOnNavigationBar {
+                self.titleView.alpha = 0
+                self.titleView.isHidden = false
+                self.titleView.frame.origin.y += 5
+                self.shopButtonView.alpha = 0
+                self.shopButtonView.isHidden = false
+                self.shopButtonView.frame.origin.y += 5
+                UIView.animate(withDuration: 0.35, animations: {
+                    self.titleView.frame.origin.y -= 5
+                    self.shopButtonView.frame.origin.y -= 5
+                    self.titleView.alpha = 1
+                    self.shopButtonView.alpha = 1
+                    if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppDetailTopTableViewCell {
+                        cell.alpha = 0
+                    }
+                })
+            }else{
+                UIView.animate(withDuration: 0.35, animations: {
+                    self.titleView.alpha = 0
+                    self.shopButtonView.alpha = 0
+                    if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppDetailTopTableViewCell {
+                        cell.alpha = 1
+                    }
+
+                })
+
+            }
+        }
+    }
+    var titleView:TitleView = TitleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+    var shopButtonView = ShopButtonView()
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.titleView.imageView.image = appIconImage
+        self.navigationItem.titleView = self.titleView
+        self.titleView.isHidden = true
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.navigationItem.largeTitleDisplayMode = .never
         if let id = appListInfo?.id.attributes?["im:id"] {
             self.loadData(id:id)
         }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.shopButtonView)
+        self.shopButtonView.title = self.appListInfo?.price.text
+        self.shopButtonView.addTarget(target: self, action: #selector(shopAction), for: .touchUpInside)
+        self.shopButtonView.isHidden = true
+    }
+    @objc func shopAction(){
+        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
+                print("finished")
+            })
+        }
+
     }
     func loadAppImage(){
         guard let urlString = self.appDetailInfo?["artworkUrl512"] as? String , let url = URL(string:urlString) else{return}
@@ -81,6 +128,9 @@ class AppDetailViewController: UIViewController {
                 self.tableView.reloadData()
                 self.loadAppImage()
                 self.loadScreenshotImage()
+                if let text = result["formattedPrice"] as? String {
+                    self.shopButtonView.title = text
+                }
             }
         }.resume()
     }
@@ -315,6 +365,20 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             
         default:
             ()
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var targetValue:CGFloat = 0
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppDetailTopTableViewCell {
+            let point = CGPoint(x: 0, y: cell.appActionButton.frame.minY)
+            let value = cell.convert(point, to: self.tableView)
+            targetValue = value.y - self.tableView.safeAreaInsets.top
+        }
+        if !showIconOnNavigationBar, scrollView.contentOffset.y > targetValue {
+            showIconOnNavigationBar = true
+            
+        }else if showIconOnNavigationBar, scrollView.contentOffset.y < targetValue {
+            showIconOnNavigationBar = false
         }
     }
     
