@@ -12,7 +12,8 @@ class AppDetailViewController: UIViewController {
     var appListInfo:AppListInfo?
     var appDetailInfo:[String : Any]?
     var appIconImage:UIImage?
-
+    var screenshotImages:[UIImage]?
+    var screenshotFlowLayout:PagingFlowLayout?
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +25,44 @@ class AppDetailViewController: UIViewController {
     }
     func loadAppImage(){
         guard let urlString = self.appDetailInfo?["artworkUrl512"] as? String , let url = URL(string:urlString) else{return}
-        URLSession.shared.dataTask(with: url) { (data, urlResponse, error) in
-            guard let data = data else{return}
-            if let image = UIImage(data:data) {
+        url.toImage { (image) in
+            if let image = image {
                 DispatchQueue.main.async {
                     self.appIconImage = image
                     self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
                 }
             }
-        }.resume()
+        }
     }
+    //스크린샷이미지들을 로드하고 완료하면 UI업데이트를 합니다.
+    func loadScreenshotImage(){
+        guard let screenshotUrlStrings = self.appDetailInfo?["screenshotUrls"] as? [String] else{return}
+        DispatchQueue.global().async {
+            var loadedCount = 0
+            var images:[UIImage] = []
+            let semaphore = DispatchSemaphore(value: 0)
+            for urlString in screenshotUrlStrings {
+                guard let url = URL(string:urlString) else{ return }
+                url.toImage({ (image) in
+                    if let image = image {
+                        images.append(image)
+                    }
+                    loadedCount += 1
+                    if screenshotUrlStrings.count == loadedCount {
+                        semaphore.signal()
+                    }
+                })
+            }
+            _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+            DispatchQueue.main.async {
+                self.screenshotImages = images
+                self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+
+            }
+        }
+
+    }
+    
     func loadData(id:String){
         let urlString = "https://itunes.apple.com/lookup?id=\(id)&country=kr"
         guard let url = URL(string:urlString) else{return}
@@ -45,6 +74,7 @@ class AppDetailViewController: UIViewController {
                 self.appDetailInfo = result
                 self.tableView.reloadData()
                 self.loadAppImage()
+                self.loadScreenshotImage()
             }
         }.resume()
     }
@@ -71,6 +101,8 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             return self.tableView.dequeueReusableCell(withIdentifier: "Top", for: indexPath)
         }else if indexPath.row == 1{
             return self.tableView.dequeueReusableCell(withIdentifier: "Rating", for: indexPath)
+        }else if indexPath.row == 2{
+            return self.tableView.dequeueReusableCell(withIdentifier: "Screenshot List", for: indexPath)
         }
         return UITableViewCell()
     }
@@ -78,11 +110,12 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.reuseCell(for: indexPath)
         if let cell = cell as? AppDetailTopTableViewCell {
+            cell.delegate = self
             if cell.appImageView.image == nil {
                 if let detail = self.appDetailInfo {
                     cell.appImageView.image = self.appIconImage
@@ -107,6 +140,22 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.starRatingDetailLabel.text = value.roundedWithAbbreviations
             }
             
+        }else if let cell = cell as? AppDetailScreenshotListTableViewCell {
+            cell.subTitleLabel.text = "iPhone"
+            cell.collectionView.dataSource = self
+            cell.collectionView.delegate = self
+            if let flowlayout = self.screenshotFlowLayout {
+                cell.collectionView.collectionViewLayout = flowlayout
+
+            }else if let layout = cell.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                self.screenshotFlowLayout = PagingFlowLayout()
+                self.screenshotFlowLayout?.itemSize = layout.itemSize
+                self.screenshotFlowLayout?.minimumLineSpacing = layout.minimumLineSpacing
+                self.screenshotFlowLayout?.minimumInteritemSpacing = layout.minimumInteritemSpacing
+                self.screenshotFlowLayout?.sectionInset = layout.sectionInset
+                self.screenshotFlowLayout?.scrollDirection = layout.scrollDirection
+            }
+            
         }
         
         return cell
@@ -114,19 +163,59 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension Int {
-    var roundedWithAbbreviations: String {
-        let number = Double(self)
-        let thousand = number / 1000
-        let million = number / 1000000
-        if million >= 1.0 {
-            return "\(round(million*10)/10)만"
+
+extension AppDetailViewController : AppDetailTopTableViewCellDelegate {
+    func appDetailTopTableViewCellDidAction(cell: AppDetailTopTableViewCell) {
+        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
+                print("finished")
+            })
         }
-        else if thousand >= 1.0 {
-            return "\(round(thousand*10)/10)천"
+    }
+    func appDetailTopTableViewCellDidSubAction(cell: AppDetailTopTableViewCell) {
+        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
+            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "공유", style: .default, handler: { (action) in
+                self.shareAction(url)
+            }))
+            ac.addAction(UIAlertAction(title: "앱스토어로 가기", style: .default, handler: { (action) in
+                UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
+                    print("finished")
+                })
+            }))
+            ac.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            self.present(ac, animated: true, completion: nil)
         }
-        else {
-            return "\(Int(number))"
+    }
+    func shareAction(_ url:URL){
+        let avc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        self.present(avc, animated: true, completion: nil)
+    }
+}
+extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.screenshotImages == nil ? 0 : 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let images = self.screenshotImages else{ return 0}
+        return images.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Screenshot", for: indexPath) as! ScreenshotCollectionViewCell
+        cell.imageView.image = self.screenshotImages?[indexPath.row]
+        return cell
+    }
+}
+class PagingFlowLayout: UICollectionViewFlowLayout {
+    var pagingLeftMargin:CGFloat = 20//페이징시 좌측 여백(살짝보이기)
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+        guard let contentOffset = collectionView?.contentOffset else {return proposedContentOffset}
+        var index = Int(floor(contentOffset.x / (self.itemSize.width + self.minimumLineSpacing)))
+        if contentOffset.x < proposedContentOffset.x {
+            //우로 이동중
+            index += 1
         }
+        let targetX = CGFloat(index) * (self.itemSize.width + self.minimumLineSpacing) + self.sectionInset.left - pagingLeftMargin
+        return CGPoint(x: targetX, y: proposedContentOffset.y)
     }
 }

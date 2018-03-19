@@ -158,7 +158,6 @@ extension AppListViewController: UITableViewDataSource, UITableViewDelegate, UIT
         }
     }
 }
-
 extension AppListViewController: AppItemTableViewCellDelegate {
     func didSelectRightButton(cell: AppItemTableViewCell) {
         guard let indexPath = self.tableView.indexPath(for: cell) else{ return }
