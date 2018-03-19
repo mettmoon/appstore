@@ -13,7 +13,7 @@ class PagingFlowLayout: UICollectionViewFlowLayout {
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let contentOffset = collectionView?.contentOffset else {return proposedContentOffset}
         var index = Int(floor(contentOffset.x / (self.itemSize.width + self.minimumLineSpacing)))
-        if contentOffset.x < proposedContentOffset.x {//우로 이동중
+        if velocity.x > 0 {//우로 이동중
             index += 1
         }
         let targetX = CGFloat(index) * (self.itemSize.width + self.minimumLineSpacing) + self.sectionInset.left - pagingLeftMargin
