@@ -28,6 +28,7 @@ class AppDetailTopTableViewCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.appSubActionButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.appActionButton.setBackgroundImage(UIImage(color:self.appActionButton.tintColor), for: .normal)
         self.appActionButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.bold)
         self.appActionButton.setTitleColor(UIColor.white, for: .normal)

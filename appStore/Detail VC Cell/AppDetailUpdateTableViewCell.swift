@@ -27,6 +27,9 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        let image = #imageLiteral(resourceName: "more_bg").resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0))
+        self.moreButton.setBackgroundImage(image, for: .normal)
+        self.moreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
         // Initialization code
     }
 

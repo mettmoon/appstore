@@ -430,8 +430,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qn1-GA-B0l">
-                                                    <rect key="frame" x="319" y="93" width="36" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qn1-GA-B0l">
+                                                    <rect key="frame" x="307" y="93" width="48" height="30"/>
                                                     <state key="normal" title="more"/>
                                                     <connections>
                                                         <action selector="moreButtonAction:" destination="COl-YI-V5Z" eventType="touchUpInside" id="fZf-a9-kFs"/>
@@ -822,15 +822,15 @@
                                                     </cells>
                                                 </collectionView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone_x" translatesAutoresizingMaskIntoConstraints="NO" id="f19-Gd-y1K">
-                                                    <rect key="frame" x="20" y="392" width="29" height="29"/>
+                                                    <rect key="frame" x="20" y="395" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="29" id="2Pm-Fr-1sp"/>
-                                                        <constraint firstAttribute="height" constant="29" id="Bu8-6h-k37"/>
+                                                        <constraint firstAttribute="width" constant="20" id="2Pm-Fr-1sp"/>
+                                                        <constraint firstAttribute="height" constant="20" id="Bu8-6h-k37"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFL-VN-Rd4">
-                                                    <rect key="frame" x="52" y="396" width="42" height="20.666666666666686"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="43" y="396" width="35.333333333333343" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
