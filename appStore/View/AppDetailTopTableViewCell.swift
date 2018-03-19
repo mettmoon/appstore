@@ -26,6 +26,14 @@ class AppDetailTopTableViewCell: UITableViewCell {
     @IBAction func appSubAction(_ sender: Any) {
         self.delegate?.appDetailTopTableViewCellDidSubAction(cell: self)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.appImageView.image = nil
+        self.appSubTitleLabel.text = nil
+        self.appTitleLabel.text = nil
+        self.appActionButton.setTitle(nil, for: .normal)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.appSubActionButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)

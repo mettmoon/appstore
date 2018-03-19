@@ -126,13 +126,8 @@ extension AppListViewController: UITableViewDataSource, UITableViewDelegate, UIT
         return self.items.count
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? AppItemTableViewCell {
-            cell.subTitleLabel.sizeToFit()
-        }
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let info = self.item(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppItemTableViewCell
+        let cell = cell as! AppItemTableViewCell
         cell.imageItemView.image = nil
         cell.delegate = self
         cell.titleLabel.text = info.name.text
@@ -153,8 +148,14 @@ extension AppListViewController: UITableViewDataSource, UITableViewDelegate, UIT
             }
             
         }
+
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppItemTableViewCell
         return cell
     }
+    
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             let info = self.item(for: indexPath)

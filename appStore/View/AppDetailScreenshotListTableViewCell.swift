@@ -1,5 +1,5 @@
 //
-//  AppDetailCopyrightTableViewCell.swift
+//  AppDetailScreenshotListTableViewCell.swift
 //  appStore
 //
 //  Created by Peter Moon on 19/03/2018.
@@ -8,9 +8,14 @@
 
 import UIKit
 
-class AppDetailCopyrightTableViewCell: UITableViewCell {
+class AppDetailScreenshotListTableViewCell: UITableViewCell {
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var subTitleLabel: UILabel!
 
-    @IBOutlet weak var itemValueLabel: UILabel!
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.subTitleLabel.text = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

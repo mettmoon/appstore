@@ -21,7 +21,11 @@ class AppDetailInformationTableViewCell: UITableViewCell {
             self.layoutIfNeeded()
         }
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.itemTitleLabel.text = nil
+        self.itemValueLabel.text = nil
+    }
     override func awakeFromNib() {
         self.expandImageView?.isHidden = isExpandArrowHidden
         

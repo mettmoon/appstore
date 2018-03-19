@@ -17,6 +17,10 @@ class AppDetailDescriptionTableViewCell: UITableViewCell {
         self.delegate?.appDetailDescriptionTableViewCellmoreButtonAction(cell: self)
     }
     @IBOutlet weak var moreButton: UIButton!
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.descriptionLabel.text = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = #imageLiteral(resourceName: "more_bg").resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0))

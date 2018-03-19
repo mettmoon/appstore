@@ -21,6 +21,16 @@ class AppDetailRatingTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        starRatingLabel.text = nil
+        starRatingDetailLabel.text = nil
+        centerRatingTitleLabel.text = nil
+        centerRatingValueLabel.text = nil
+        rightRatingTitleLabel.text = nil
+        rightRatingValueLabel.text = nil
+        self.starRating = 0
+    }
     var starRating:Double = 5 {
         didSet{
             self.starRatingLabel.text = "\(starRating)"

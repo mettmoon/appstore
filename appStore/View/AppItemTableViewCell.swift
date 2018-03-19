@@ -11,6 +11,7 @@ protocol AppItemTableViewCellDelegate {
     func didSelectRightButton(cell:AppItemTableViewCell)
 }
 class AppItemTableViewCell: UITableViewCell {
+    let queue = SerialOperationQueue()
     var delegate:AppItemTableViewCellDelegate?
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -19,6 +20,13 @@ class AppItemTableViewCell: UITableViewCell {
     @IBOutlet weak var rightButton: UIButton!
     @IBAction func rightButtonAction(_ sender: Any) {
         self.delegate?.didSelectRightButton(cell: self)
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.rankLabel.text = nil
+        titleLabel.text = nil
+        self.subTitleLabel.text = nil
+        self.imageItemView.image = nil
     }
     override func awakeFromNib() {
         super.awakeFromNib()

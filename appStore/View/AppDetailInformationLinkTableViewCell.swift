@@ -14,6 +14,12 @@ class AppDetailInformationLinkTableViewCell: UITableViewCell {
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var topLineView: UIImageView!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.itemTitleLabel.text = nil
+        self.itemImageView.image = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

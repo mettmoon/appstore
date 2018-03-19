@@ -17,4 +17,8 @@ class ScreenshotCollectionViewCell: UICollectionViewCell {
         self.imageView.layer.cornerRadius = self.frame.size.width * 0.05
 
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = nil
+    }
 }

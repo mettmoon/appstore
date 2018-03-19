@@ -1,5 +1,5 @@
 //
-//  AppDetailRatingReviewTableViewCell.swift
+//  AppDetailCopyrightTableViewCell.swift
 //  appStore
 //
 //  Created by Peter Moon on 19/03/2018.
@@ -8,8 +8,13 @@
 
 import UIKit
 
-class AppDetailRatingReviewTableViewCell: UITableViewCell {
+class AppDetailCopyrightTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var itemValueLabel: UILabel!
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.itemValueLabel.text = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -13,7 +13,6 @@
 		366338B3205F3C99001F31DD /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */; };
 		366338B5205F3DA5001F31DD /* AppDetailScreenshotListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */; };
 		366338B7205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B6205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift */; };
-		366338B9205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B8205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift */; };
 		366338BB205F594D001F31DD /* AppDetailUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338BA205F594D001F31DD /* AppDetailUpdateTableViewCell.swift */; };
 		366338C1205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338C0205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift */; };
 		366338C3205F59F4001F31DD /* AppDetailInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338C2205F59F4001F31DD /* AppDetailInformationTableViewCell.swift */; };
@@ -30,6 +29,7 @@
 		36970276205A667F002D6531 /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36970275205A667F002D6531 /* AppDetailViewController.swift */; };
 		3697027C205A7388002D6531 /* AppDetailTopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */; };
 		D0355BF8205EA706004D0582 /* AppDetailRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355BF7205EA706004D0582 /* AppDetailRatingTableViewCell.swift */; };
+		D0355BFE205FC7F8004D0582 /* SerialOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0355BFD205FC7F8004D0582 /* SerialOperationQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,6 @@
 		366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailScreenshotListTableViewCell.swift; sourceTree = "<group>"; };
 		366338B6205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailDescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		366338B8205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailRatingReviewTableViewCell.swift; sourceTree = "<group>"; };
 		366338BA205F594D001F31DD /* AppDetailUpdateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		366338C0205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailInformationTitleTableViewCell.swift; sourceTree = "<group>"; };
 		366338C2205F59F4001F31DD /* AppDetailInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailInformationTableViewCell.swift; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		36970275205A667F002D6531 /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailTopTableViewCell.swift; sourceTree = "<group>"; };
 		D0355BF7205EA706004D0582 /* AppDetailRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailRatingTableViewCell.swift; sourceTree = "<group>"; };
+		D0355BFD205FC7F8004D0582 /* SerialOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SerialOperationQueue.swift; path = appStore/Utilities/SerialOperationQueue.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,15 +92,10 @@
 			children = (
 				366E32E12059EB7900948296 /* AppDelegate.swift */,
 				366E32F32059F04A00948296 /* AppListViewController.swift */,
-				36970273205A61D7002D6531 /* Extensions.swift */,
-				366E32F52059F24100948296 /* JSONStruct.swift */,
-				366E32E52059EB7900948296 /* Main.storyboard */,
-				36126F36205F9ABE00B5D62B /* TopLineProtocol.swift */,
-				366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */,
-				D0355BF9205EADE4004D0582 /* Detail VC Cell */,
 				36970275205A667F002D6531 /* AppDetailViewController.swift */,
-				366338C8205F74F1001F31DD /* PagingFlowLayout.swift */,
-				36970271205A025B002D6531 /* AppItemTableViewCell.swift */,
+				366E32E52059EB7900948296 /* Main.storyboard */,
+				D0355BF9205EADE4004D0582 /* View */,
+				D0355BFC205FC544004D0582 /* Utilities */,
 				366E32E82059EB7900948296 /* Assets.xcassets */,
 				366E32EA2059EB7900948296 /* LaunchScreen.storyboard */,
 				366E32ED2059EB7900948296 /* Info.plist */,
@@ -108,12 +103,13 @@
 			path = appStore;
 			sourceTree = "<group>";
 		};
-		D0355BF9205EADE4004D0582 /* Detail VC Cell */ = {
+		D0355BF9205EADE4004D0582 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */,
+				36970271205A025B002D6531 /* AppItemTableViewCell.swift */,
 				D0355BF7205EA706004D0582 /* AppDetailRatingTableViewCell.swift */,
 				366338B6205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift */,
-				366338B8205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift */,
 				366338BA205F594D001F31DD /* AppDetailUpdateTableViewCell.swift */,
 				366338C0205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift */,
 				366338C2205F59F4001F31DD /* AppDetailInformationTableViewCell.swift */,
@@ -123,7 +119,19 @@
 				366338C6205F5A4C001F31DD /* AppDetailCopyrightTableViewCell.swift */,
 				3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */,
 			);
-			path = "Detail VC Cell";
+			path = View;
+			sourceTree = "<group>";
+		};
+		D0355BFC205FC544004D0582 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D0355BFD205FC7F8004D0582 /* SerialOperationQueue.swift */,
+				36126F36205F9ABE00B5D62B /* TopLineProtocol.swift */,
+				36970273205A61D7002D6531 /* Extensions.swift */,
+				366338C8205F74F1001F31DD /* PagingFlowLayout.swift */,
+				366E32F52059F24100948296 /* JSONStruct.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +213,7 @@
 				36126F35205F875000B5D62B /* AppDetailLineTableViewCell.swift in Sources */,
 				366338C9205F74F1001F31DD /* PagingFlowLayout.swift in Sources */,
 				36126F33205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift in Sources */,
+				D0355BFE205FC7F8004D0582 /* SerialOperationQueue.swift in Sources */,
 				3697027C205A7388002D6531 /* AppDetailTopTableViewCell.swift in Sources */,
 				366338B3205F3C99001F31DD /* ScreenshotCollectionViewCell.swift in Sources */,
 				36970276205A667F002D6531 /* AppDetailViewController.swift in Sources */,
@@ -214,7 +223,6 @@
 				36126F37205F9ABE00B5D62B /* TopLineProtocol.swift in Sources */,
 				366338BB205F594D001F31DD /* AppDetailUpdateTableViewCell.swift in Sources */,
 				366338C1205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift in Sources */,
-				366338B9205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift in Sources */,
 				366E32E22059EB7900948296 /* AppDelegate.swift in Sources */,
 				366338C3205F59F4001F31DD /* AppDetailInformationTableViewCell.swift in Sources */,
 				366E32F42059F04A00948296 /* AppListViewController.swift in Sources */,

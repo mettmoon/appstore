@@ -25,6 +25,13 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
     @IBAction func moreButtonAction(_ sender: Any) {
         self.delegate?.appDetailUpdateTableViewCellDidMoreButtonAction(cell: self)
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.itemTitleLabel.text = nil
+        self.versionLabel.text = nil
+        self.periodLabel.text = nil
+        self.descriptionLabel.text = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = #imageLiteral(resourceName: "more_bg").resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0))
