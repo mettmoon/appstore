@@ -132,11 +132,13 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 ()
             }
+        }else if indexPath.section == 6 {
+            return self.tableView.dequeueReusableCell(withIdentifier: "Copyright", for: indexPath)
         }
         return UITableViewCell()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.appDetailInfo == nil ? 1 : 6
+        return self.appDetailInfo == nil ? 1 : 7
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -144,6 +146,13 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             return 10
         default:
             return 1
+        }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.tableView.backgroundColor = UIColor.white
+        }else if indexPath.section == 6 {
+            self.tableView.backgroundColor = UIColor(white: 0.92, alpha: 1)
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -286,6 +295,8 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 ()
             }
+        }else if let cell = cell as? AppDetailCopyrightTableViewCell {
+            cell.itemValueLabel.text = appListInfo?.rights.text
         }
         
         return cell

@@ -10,6 +10,7 @@ import UIKit
 
 class AppDetailCopyrightTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var itemValueLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -35,6 +35,7 @@ class AppDetailTopTableViewCell: UITableViewCell {
         
         self.appSubActionButton.layer.masksToBounds = true
         self.appSubActionButton.setBackgroundImage(UIImage(color:self.appSubActionButton.tintColor), for: .normal)
+        self.appSubActionButton.tintColor = UIColor.white
         self.appActionButton.layer.cornerRadius = self.appActionButton.frame.size.height / 2
         self.appSubActionButton.layer.cornerRadius = self.appActionButton.frame.size.height / 2
         
