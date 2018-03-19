@@ -7,10 +7,24 @@
 //
 
 import UIKit
-
 class AppDetailInformationTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var topLineHeightLC: NSLayoutConstraint!
+    @IBOutlet weak var topLineView: UIImageView!
+    @IBOutlet weak var expandImageViewWidthLC: NSLayoutConstraint?
+    @IBOutlet weak var itemTitleLabel: UILabel!
+    @IBOutlet weak var itemValueLabel: UILabel!
+    @IBOutlet weak var expandImageView: UIImageView?
+    var isExpandArrowHidden:Bool = false{
+        didSet{
+            self.expandImageView?.isHidden = isExpandArrowHidden
+            self.expandImageViewWidthLC?.constant = isExpandArrowHidden ? 0 : 16
+            self.layoutIfNeeded()
+        }
+    }
+    
     override func awakeFromNib() {
+        self.expandImageView?.isHidden = isExpandArrowHidden
+        
         super.awakeFromNib()
         // Initialization code
     }

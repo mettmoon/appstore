@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36126F33205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36126F32205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift */; };
+		36126F35205F875000B5D62B /* AppDetailLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36126F34205F875000B5D62B /* AppDetailLineTableViewCell.swift */; };
+		36126F37205F9ABE00B5D62B /* TopLineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36126F36205F9ABE00B5D62B /* TopLineProtocol.swift */; };
 		366338B3205F3C99001F31DD /* ScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */; };
 		366338B5205F3DA5001F31DD /* AppDetailScreenshotListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */; };
 		366338B7205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366338B6205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift */; };
@@ -30,6 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36126F32205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailInformationLinkTableViewCell.swift; sourceTree = "<group>"; };
+		36126F34205F875000B5D62B /* AppDetailLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailLineTableViewCell.swift; sourceTree = "<group>"; };
+		36126F36205F9ABE00B5D62B /* TopLineProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLineProtocol.swift; sourceTree = "<group>"; };
 		366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailScreenshotListTableViewCell.swift; sourceTree = "<group>"; };
 		366338B6205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailDescriptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -89,6 +95,7 @@
 				36970273205A61D7002D6531 /* Extensions.swift */,
 				366E32F52059F24100948296 /* JSONStruct.swift */,
 				366E32E52059EB7900948296 /* Main.storyboard */,
+				36126F36205F9ABE00B5D62B /* TopLineProtocol.swift */,
 				366338B2205F3C99001F31DD /* ScreenshotCollectionViewCell.swift */,
 				D0355BF9205EADE4004D0582 /* Detail VC Cell */,
 				36970275205A667F002D6531 /* AppDetailViewController.swift */,
@@ -110,6 +117,8 @@
 				366338BA205F594D001F31DD /* AppDetailUpdateTableViewCell.swift */,
 				366338C0205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift */,
 				366338C2205F59F4001F31DD /* AppDetailInformationTableViewCell.swift */,
+				36126F32205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift */,
+				36126F34205F875000B5D62B /* AppDetailLineTableViewCell.swift */,
 				366338B4205F3DA4001F31DD /* AppDetailScreenshotListTableViewCell.swift */,
 				366338C6205F5A4C001F31DD /* AppDetailCopyrightTableViewCell.swift */,
 				3697027B205A7388002D6531 /* AppDetailTopTableViewCell.swift */,
@@ -193,13 +202,16 @@
 				36970274205A61D7002D6531 /* Extensions.swift in Sources */,
 				36970272205A025B002D6531 /* AppItemTableViewCell.swift in Sources */,
 				366E32F62059F24100948296 /* JSONStruct.swift in Sources */,
+				36126F35205F875000B5D62B /* AppDetailLineTableViewCell.swift in Sources */,
 				366338C9205F74F1001F31DD /* PagingFlowLayout.swift in Sources */,
+				36126F33205F873800B5D62B /* AppDetailInformationLinkTableViewCell.swift in Sources */,
 				3697027C205A7388002D6531 /* AppDetailTopTableViewCell.swift in Sources */,
 				366338B3205F3C99001F31DD /* ScreenshotCollectionViewCell.swift in Sources */,
 				36970276205A667F002D6531 /* AppDetailViewController.swift in Sources */,
 				366338B5205F3DA5001F31DD /* AppDetailScreenshotListTableViewCell.swift in Sources */,
 				D0355BF8205EA706004D0582 /* AppDetailRatingTableViewCell.swift in Sources */,
 				366338B7205F587B001F31DD /* AppDetailDescriptionTableViewCell.swift in Sources */,
+				36126F37205F9ABE00B5D62B /* TopLineProtocol.swift in Sources */,
 				366338BB205F594D001F31DD /* AppDetailUpdateTableViewCell.swift in Sources */,
 				366338C1205F59EB001F31DD /* AppDetailInformationTitleTableViewCell.swift in Sources */,
 				366338B9205F5935001F31DD /* AppDetailRatingReviewTableViewCell.swift in Sources */,

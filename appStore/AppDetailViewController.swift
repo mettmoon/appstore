@@ -16,6 +16,10 @@ class AppDetailViewController: UIViewController {
     var screenshotFlowLayout:PagingFlowLayout?
     var isDescriptionOpen = false
     var isUpdateDescriptionOpen = false
+    var expandItems:[String: Bool] = [:]
+    let compassImage:UIImage = #imageLiteral(resourceName: "compass").withRenderingMode(.alwaysTemplate)
+    let handImage:UIImage = #imageLiteral(resourceName: "hand_filled").withRenderingMode(.alwaysTemplate)
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,17 +113,42 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             return self.tableView.dequeueReusableCell(withIdentifier: "Description", for: indexPath)
         }else if indexPath.section == 4 {
             return self.tableView.dequeueReusableCell(withIdentifier: "Update", for: indexPath)
+        }else if indexPath.section == 5 {
+            switch indexPath.row {
+            case 0:
+                return self.tableView.dequeueReusableCell(withIdentifier: "Line", for: indexPath)
+            case 1:
+                return self.tableView.dequeueReusableCell(withIdentifier: "Information Title", for: indexPath)
+            case 2,3,4,6,7:
+                return self.tableView.dequeueReusableCell(withIdentifier: "Information", for: indexPath)
+            case 8,9:
+                return self.tableView.dequeueReusableCell(withIdentifier: "Information Link", for: indexPath)
+            case 5:
+                var identifier = "Information"
+                if self.expandItems["Compatibility"] == true {
+                    identifier += " Expanded"
+                }
+                return self.tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+            default:
+                ()
+            }
         }
         return UITableViewCell()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.appDetailInfo == nil ? 1 : 5
+        return self.appDetailInfo == nil ? 1 : 6
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 5:
+            return 10
+        default:
+            return 1
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.reuseCell(for: indexPath)
+        cell.selectionStyle = .none
         if let cell = cell as? AppDetailTopTableViewCell {
             cell.delegate = self
             if cell.appImageView.image == nil {
@@ -181,9 +210,101 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.periodLabel.text = nil
             }
+        }else if let cell = cell as? AppDetailInformationTableViewCell {
+            cell.isTopLineHidden = indexPath.row == 0
+            cell.topLineHeight = 1 / UIScreen.main.scale
+            cell.isExpandArrowHidden = true
+            switch indexPath.row {
+            case 2:
+                cell.itemTitleLabel.text = "Seller"
+                cell.itemValueLabel.text = appDetailInfo?["sellerName"] as? String
+            case 3:
+                cell.itemTitleLabel.text = "Size"
+                cell.itemValueLabel.text = appDetailInfo?["fileSizeBytes"] as? String
+            case 4:
+                cell.itemTitleLabel.text = "Category"
+                cell.itemValueLabel.text = appDetailInfo?["kind"] as? String
+            case 5:
+                cell.itemTitleLabel.text = "Compatibility"
+                cell.isExpandArrowHidden = self.expandItems["Compatibility"] != true
+                if let versionString = appDetailInfo?["minimumOsVersion"] as? String
+                    , versionString.compare(UIDevice.current.systemVersion, options: .numeric, range: nil, locale: nil) != ComparisonResult.orderedDescending
+                {
+                    //버전만 체크하겠습니다..
+                    var text = "Works on this"
+                    if let name = UIDevice.current.localizedModel.components(separatedBy: " ").first {
+                        text += " \(name)"
+                    }
+                    cell.itemValueLabel.text = text
+                    
+                    
+                    
+                }else{
+                    cell.itemValueLabel.text = "need update OS"
+                }
+                
+            case 6:
+                cell.itemTitleLabel.text = "Languages"
+                if let languages = appDetailInfo?["languageCodesISO2A"] as? [String], languages.count > 0 {
+                    var text:String = ""
+                    if languages.count > 2 {
+                        if let string = Locale.current.localizedString(forLanguageCode: languages.first!) {
+                            text += string
+                        }
+                        text += "and \(languages.count - 1) more"
+                    }else{
+                        for language in languages {
+                            if text != "" {
+                                text += " and "
+                            }
+                            if let string = Locale.current.localizedString(forLanguageCode: language) {
+                                text += string
+                            }
+                        }
+                    }
+                    cell.itemValueLabel.text = text
+                }
+            case 7:
+                cell.itemTitleLabel.text = "Age Rating"
+                cell.itemValueLabel.text = appDetailInfo?["contentAdvisoryRating"] as? String
+            default:
+                ()
+
+            }
+        }else if let cell = cell as? AppDetailInformationLinkTableViewCell {
+            cell.isTopLineHidden = indexPath.row == 0
+            cell.topLineHeight = 1 / UIScreen.main.scale
+            switch indexPath.row {
+            case 8:
+                cell.itemTitleLabel.text = "Developer Website"
+                cell.itemImageView.image = self.compassImage
+                cell.itemImageView.tintColor = self.view.tintColor
+            case 9:
+                cell.itemTitleLabel.text = "Privacy Policy"
+                cell.itemImageView.image = self.handImage
+                cell.itemImageView.tintColor = self.view.tintColor
+            default:
+                ()
+            }
         }
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else{return}
+        switch cell {
+        case cell as AppDetailInformationLinkTableViewCell:
+            if indexPath.row == 8 {
+                if let urlString = self.appDetailInfo?["sellerUrl"] as? String, let url = URL(string:urlString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }else if indexPath.row == 9 {
+                //Privacy Policy 링크가 없네요..
+            }
+            
+        default:
+            ()
+        }
     }
     
 }
@@ -204,8 +325,8 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 fileprivate extension Date {
-    //참고함..
-    //https://gist.github.com/minorbug/468790060810e0d29545
+    //
+    //refer URL:https://gist.github.com/minorbug/468790060810e0d29545
     func timeAgoSinceDate(numericDates:Bool) -> String {
         let calendar = NSCalendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
