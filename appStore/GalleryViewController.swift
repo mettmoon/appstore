@@ -14,6 +14,7 @@ class GalleryViewController: UIViewController {
             self.collectionView?.reloadData()
         }
     }
+    var startIndexPath:IndexPath?
     @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func doneButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -67,5 +68,12 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ScreenshotCollectionViewCell
         cell.imageView.image = self.items[indexPath.row]
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let indexPath = self.startIndexPath {
+            self.collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: false)
+            self.startIndexPath = nil
+        }
+
     }
 }

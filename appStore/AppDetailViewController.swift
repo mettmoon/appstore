@@ -58,6 +58,7 @@ class AppDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Gallery", let gvc = segue.destination as? GalleryViewController {
+            gvc.startIndexPath = sender as? IndexPath
             if let items = self.screenshotImages{
                 gvc.items = items
             }else{
@@ -267,15 +268,13 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
         }else if let cell = cell as? AppDetailDescriptionTableViewCell {
-            cell.delegate = self
+            cell.descriptionLabel.text = appDetailInfo?["description"] as? String
             cell.moreButton.isHidden = self.isDescriptionOpen
             cell.descriptionLabel.numberOfLines = self.isDescriptionOpen ? 0 : 3
-            cell.descriptionLabel.text = appDetailInfo?["description"] as? String
         }else if let cell = cell as? AppDetailUpdateTableViewCell {
-            cell.delegate = self
+            cell.descriptionLabel.text = appDetailInfo?["releaseNotes"] as? String
             cell.moreButton.isHidden = self.isUpdateDescriptionOpen
             cell.descriptionLabel.numberOfLines = self.isUpdateDescriptionOpen ? 0 : 3
-            cell.descriptionLabel.text = appDetailInfo?["releaseNotes"] as? String
             cell.versionLabel.text = appDetailInfo?["version"] as? String
             if let dateString = appDetailInfo?["currentVersionReleaseDate"] as? String {
                 let dateFormmater = DateFormatter()
@@ -378,7 +377,12 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             }else if indexPath.row == 9 {
                 //Privacy Policy 링크가 없네요..
             }
-            
+        case cell as AppDetailDescriptionTableViewCell:
+            self.isDescriptionOpen = true
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        case cell as AppDetailUpdateTableViewCell:
+            self.isUpdateDescriptionOpen = true
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
         default:
             ()
         }
@@ -415,7 +419,7 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "Gallery", sender: nil)
+        self.performSegue(withIdentifier: "Gallery", sender: indexPath)
     }
 }
 

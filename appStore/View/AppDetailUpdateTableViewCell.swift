@@ -8,13 +8,7 @@
 
 import UIKit
 
-protocol AppDetailUpdateTableViewCellDelegate:class {
-    var isUpdateDescriptionOpen:Bool {get set}
-    func appDetailUpdateTableViewCellDidMoreButtonAction(cell:AppDetailUpdateTableViewCell)
-}
-
 class AppDetailUpdateTableViewCell: UITableViewCell {
-    weak var delegate:AppDetailUpdateTableViewCellDelegate?
     
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var itemTitleLabel: UILabel!
@@ -22,9 +16,6 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
     @IBOutlet weak var periodLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    @IBAction func moreButtonAction(_ sender: Any) {
-        self.delegate?.appDetailUpdateTableViewCellDidMoreButtonAction(cell: self)
-    }
     override func prepareForReuse() {
         super.prepareForReuse()
         self.itemTitleLabel.text = nil
@@ -47,11 +38,4 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
     }
 
 }
-extension AppDetailViewController: AppDetailUpdateTableViewCellDelegate {
-    func appDetailUpdateTableViewCellDidMoreButtonAction(cell: AppDetailUpdateTableViewCell) {
-        self.isUpdateDescriptionOpen = true
-        let indexPath = IndexPath(row: 0, section: 4)
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-    }
-    
-}
+

@@ -7,15 +7,8 @@
 //
 
 import UIKit
-protocol AppDetailDescriptionTableViewCellDelegate:class{
-    func appDetailDescriptionTableViewCellmoreButtonAction(cell:AppDetailDescriptionTableViewCell)
-}
 class AppDetailDescriptionTableViewCell: UITableViewCell {
-    weak var delegate:AppDetailDescriptionTableViewCellDelegate?
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBAction func moreButtonAction(_ sender: Any) {
-        self.delegate?.appDetailDescriptionTableViewCellmoreButtonAction(cell: self)
-    }
     @IBOutlet weak var moreButton: UIButton!
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -23,6 +16,7 @@ class AppDetailDescriptionTableViewCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.moreButton.isUserInteractionEnabled = false
         let image = #imageLiteral(resourceName: "more_bg").resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0))
         self.moreButton.setBackgroundImage(image, for: .normal)
         self.moreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
@@ -36,9 +30,4 @@ class AppDetailDescriptionTableViewCell: UITableViewCell {
 
 }
 
-extension AppDetailViewController: AppDetailDescriptionTableViewCellDelegate {
-    func appDetailDescriptionTableViewCellmoreButtonAction(cell: AppDetailDescriptionTableViewCell) {
-        self.isDescriptionOpen = true
-        self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3)], with: .automatic)
-    }
-}
+

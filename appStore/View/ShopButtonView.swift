@@ -16,6 +16,9 @@ class ShopButtonView: UIView {
         }
         set{
             self.appActionButton.setTitle(newValue, for: .normal)
+            self.appActionButton.sizeToFit()
+            self.appActionButton.frame.size.height = 30
+            self.appActionButton.frame.origin.x = self.frame.width - self.appActionButton.frame.width
         }
     }
     func addTarget(target: Any?, action: Selector, for controlEvents: UIControlEvents){
@@ -28,6 +31,7 @@ class ShopButtonView: UIView {
         self.appActionButton.setTitleColor(UIColor.white, for: .normal)
         self.appActionButton.layer.masksToBounds = true
         self.appActionButton.layer.cornerRadius = self.appActionButton.frame.size.height / 2
+        self.appActionButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         self.addSubview(self.appActionButton)
 
     }
