@@ -102,6 +102,7 @@
                                                 <constraint firstItem="NUU-fy-nvF" firstAttribute="leading" secondItem="n8e-90-aGn" secondAttribute="trailing" constant="10" id="zI0-HS-vDp"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="83" minY="0.0" maxX="10" maxY="0.0"/>
                                         <connections>
                                             <outlet property="imageItemView" destination="sx3-8z-3GW" id="bZC-36-NOx"/>
                                             <outlet property="rankLabel" destination="n8e-90-aGn" id="hP2-hR-gGS"/>
@@ -121,8 +122,8 @@
                                     <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="GfB-OO-Teu"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eid-MM-P7B">
-                                <rect key="frame" x="0.0" y="140" width="375" height="672"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eid-MM-P7B">
+                                <rect key="frame" x="-700" y="140" width="375" height="672"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UwX-iI-3ud">
                                         <rect key="frame" x="177" y="326" width="20" height="20"/>
