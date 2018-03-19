@@ -53,6 +53,13 @@ class AppDetailViewController: UIViewController {
     var titleView:TitleView = TitleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
     var shopButtonView = ShopButtonView()
     @IBOutlet weak var tableView: UITableView!
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Gallery", let gvc = segue.destination as? GalleryViewController {
+            if let items = self.screenshotImages{
+                gvc.items = items
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleView.imageView.image = appIconImage
@@ -397,6 +404,9 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Screenshot", for: indexPath) as! ScreenshotCollectionViewCell
         cell.imageView.image = self.screenshotImages?[indexPath.row]
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "Gallery", sender: nil)
     }
 }
 

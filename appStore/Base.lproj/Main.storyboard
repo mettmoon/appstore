@@ -869,11 +869,100 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="118-zk-VA5" id="Wa7-QV-NxJ"/>
+                        <segue destination="sXt-0a-FlU" kind="presentation" identifier="Gallery" id="o19-aC-ISi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfG-mN-yzg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1064.8" y="159.60591133004928"/>
+        </scene>
+        <!--Gallery View Controller-->
+        <scene sceneID="0xm-CL-UJF">
+            <objects>
+                <viewController id="sXt-0a-FlU" customClass="GalleryViewController" customModule="appStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yoV-H4-gT8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBF-9M-PtM">
+                                <rect key="frame" x="315" y="44" width="60" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="FBb-yA-BtX"/>
+                                    <constraint firstAttribute="height" constant="40" id="TjG-Xj-Qzm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="완료"/>
+                                <connections>
+                                    <action selector="doneButtonAction:" destination="sXt-0a-FlU" eventType="touchUpInside" id="rqj-Cc-2lu"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rAx-kn-eYc">
+                                <rect key="frame" x="0.0" y="84" width="374" height="644"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5kw-dr-hGw" customClass="PagingFlowLayout" customModule="appStore" customModuleProvider="target">
+                                    <size key="itemSize" width="149" height="275"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="HPT-MR-CcC" customClass="ScreenshotCollectionViewCell" customModule="appStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="149" height="275"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="149" height="275"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ii0-cq-EL5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="149" height="275"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Ii0-cq-EL5" firstAttribute="top" secondItem="HPT-MR-CcC" secondAttribute="top" id="6D9-fv-nVk"/>
+                                            <constraint firstItem="Ii0-cq-EL5" firstAttribute="leading" secondItem="HPT-MR-CcC" secondAttribute="leading" id="U6E-T8-aJC"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ii0-cq-EL5" secondAttribute="bottom" id="blm-GI-JGl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ii0-cq-EL5" secondAttribute="trailing" id="gHJ-Hv-jyj"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Ii0-cq-EL5" id="osT-Hx-Plk"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="sXt-0a-FlU" id="Lyr-Fz-6e9"/>
+                                    <outlet property="delegate" destination="sXt-0a-FlU" id="jAA-WE-kXi"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="yVq-CF-dI3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rAx-kn-eYc" secondAttribute="bottom" id="J5I-fU-yul"/>
+                            <constraint firstItem="WBF-9M-PtM" firstAttribute="top" secondItem="yVq-CF-dI3" secondAttribute="top" id="Pfs-nw-Wwt"/>
+                            <constraint firstItem="rAx-kn-eYc" firstAttribute="top" secondItem="WBF-9M-PtM" secondAttribute="bottom" id="W0K-gy-Q2V"/>
+                            <constraint firstItem="rAx-kn-eYc" firstAttribute="centerX" secondItem="yoV-H4-gT8" secondAttribute="centerX" id="W5u-zF-UPP"/>
+                            <constraint firstItem="yVq-CF-dI3" firstAttribute="trailing" secondItem="WBF-9M-PtM" secondAttribute="trailing" id="cOC-5k-v1J"/>
+                            <constraint firstItem="rAx-kn-eYc" firstAttribute="leading" secondItem="yVq-CF-dI3" secondAttribute="leading" id="cpP-vo-aQw"/>
+                            <constraint firstItem="rAx-kn-eYc" firstAttribute="centerY" secondItem="yoV-H4-gT8" secondAttribute="centerY" id="uwY-Hi-jrS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yVq-CF-dI3"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EWZ-YN-suf" appends="YES" id="7PM-fo-Hmz"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="rAx-kn-eYc" id="L8i-Gg-tm4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFl-Yj-YIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="EWZ-YN-suf">
+                    <connections>
+                        <action selector="panGRAction:" destination="sXt-0a-FlU" id="H3g-Ic-w0r"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1967.2" y="159.60591133004928"/>
         </scene>
     </scenes>
     <resources>
