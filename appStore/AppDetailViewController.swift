@@ -322,11 +322,12 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.screenshotImages == nil ? 0 : 1
+        guard let screenshotUrlStrings = self.appDetailInfo?["screenshotUrls"] as? [String] else{return 0}
+        return screenshotUrlStrings.count > 0 ? 1 : 0
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let images = self.screenshotImages else{ return 0}
-        return images.count
+        guard let screenshotUrlStrings = self.appDetailInfo?["screenshotUrls"] as? [String] else{return 0}
+        return screenshotUrlStrings.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Screenshot", for: indexPath) as! ScreenshotCollectionViewCell
