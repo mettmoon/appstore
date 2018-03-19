@@ -7,12 +7,12 @@
 //
 
 import UIKit
-protocol AppItemTableViewCellDelegate {
+protocol AppItemTableViewCellDelegate:class {
     func didSelectRightButton(cell:AppItemTableViewCell)
 }
 class AppItemTableViewCell: UITableViewCell {
     let queue = SerialOperationQueue()
-    var delegate:AppItemTableViewCellDelegate?
+    weak var delegate:AppItemTableViewCellDelegate?
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subTitleLabel: UILabel!

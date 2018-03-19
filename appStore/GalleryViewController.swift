@@ -9,7 +9,11 @@
 import UIKit
 
 class GalleryViewController: UIViewController {
-    var items:[UIImage] = []
+    var items:[UIImage] = []{
+        didSet{
+            self.collectionView?.reloadData()
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func doneButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -39,7 +43,6 @@ class GalleryViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

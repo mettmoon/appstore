@@ -7,11 +7,11 @@
 //
 
 import UIKit
-protocol AppDetailDescriptionTableViewCellDelegate{
+protocol AppDetailDescriptionTableViewCellDelegate:class{
     func appDetailDescriptionTableViewCellmoreButtonAction(cell:AppDetailDescriptionTableViewCell)
 }
 class AppDetailDescriptionTableViewCell: UITableViewCell {
-    var delegate:AppDetailDescriptionTableViewCellDelegate?
+    weak var delegate:AppDetailDescriptionTableViewCellDelegate?
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBAction func moreButtonAction(_ sender: Any) {
         self.delegate?.appDetailDescriptionTableViewCellmoreButtonAction(cell: self)

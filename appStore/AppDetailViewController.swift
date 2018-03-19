@@ -7,11 +7,12 @@
 //
 
 import UIKit
+typealias SuccessLoadImageCompletion = (([UIImage]) -> Void)
 
 class AppDetailViewController: UIViewController {
     var appListInfo:AppListInfo?
     var appDetailInfo:[String : Any]?
-    var appIconImage:UIImage?
+    weak var appIconImage:UIImage?
     var screenshotImages:[UIImage]?
     var screenshotFlowLayout:PagingFlowLayout?
     var isDescriptionOpen = false
@@ -19,6 +20,10 @@ class AppDetailViewController: UIViewController {
     var expandItems:[String: Bool] = [:]
     let compassImage:UIImage = #imageLiteral(resourceName: "compass").withRenderingMode(.alwaysTemplate)
     let handImage:UIImage = #imageLiteral(resourceName: "hand_filled").withRenderingMode(.alwaysTemplate)
+    var titleView:TitleView = TitleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+    var shopButtonView = ShopButtonView()
+
+    var successLoadImageCompletion:SuccessLoadImageCompletion?
     var showIconOnNavigationBar = false{
         didSet{
             if showIconOnNavigationBar {
@@ -50,13 +55,16 @@ class AppDetailViewController: UIViewController {
             }
         }
     }
-    var titleView:TitleView = TitleView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-    var shopButtonView = ShopButtonView()
     @IBOutlet weak var tableView: UITableView!
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Gallery", let gvc = segue.destination as? GalleryViewController {
             if let items = self.screenshotImages{
                 gvc.items = items
+            }else{
+                weak var weakgvc = gvc
+                self.successLoadImageCompletion = { images in
+                    weakgvc?.items = images
+                }
             }
         }
     }
@@ -117,6 +125,7 @@ class AppDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 self.screenshotImages = images
                 self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+                self.successLoadImageCompletion?(images)
 
             }
         }

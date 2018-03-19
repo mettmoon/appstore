@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol AppDetailUpdateTableViewCellDelegate {
+protocol AppDetailUpdateTableViewCellDelegate:class {
     var isUpdateDescriptionOpen:Bool {get set}
     func appDetailUpdateTableViewCellDidMoreButtonAction(cell:AppDetailUpdateTableViewCell)
 }
 
 class AppDetailUpdateTableViewCell: UITableViewCell {
-    var delegate:AppDetailUpdateTableViewCellDelegate?
+    weak var delegate:AppDetailUpdateTableViewCellDelegate?
     
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var itemTitleLabel: UILabel!
