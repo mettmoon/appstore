@@ -20,9 +20,6 @@ class AppDetailRatingTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
         starRatingLabel.text = nil
         starRatingDetailLabel.text = nil
         centerRatingTitleLabel.text = nil

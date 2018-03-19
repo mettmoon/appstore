@@ -15,14 +15,10 @@ class AppDetailInformationLinkTableViewCell: UITableViewCell {
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var topLineView: UIImageView!
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.itemTitleLabel.text = nil
-        self.itemImageView.image = nil
-    }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.itemTitleLabel.text = nil
+        self.itemImageView.image = nil
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

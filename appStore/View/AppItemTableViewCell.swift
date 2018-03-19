@@ -21,15 +21,12 @@ class AppItemTableViewCell: UITableViewCell {
     @IBAction func rightButtonAction(_ sender: Any) {
         self.delegate?.didSelectRightButton(cell: self)
     }
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.rankLabel.text = nil
         titleLabel.text = nil
         self.subTitleLabel.text = nil
         self.imageItemView.image = nil
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
         self.imageItemView.layer.appleIconization()
         self.rightButton.setBackgroundImage(UIImage(color:UIColor(white: 0.9, alpha: 1)), for: .normal)
         self.rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.bold)

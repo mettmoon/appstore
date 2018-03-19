@@ -12,19 +12,10 @@ class AppDetailScreenshotListTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subTitleLabel: UILabel!
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.subTitleLabel.text = nil
-    }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.subTitleLabel.text = nil
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }

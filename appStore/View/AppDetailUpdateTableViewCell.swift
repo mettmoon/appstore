@@ -16,19 +16,15 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
     @IBOutlet weak var periodLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.itemTitleLabel.text = nil
-        self.versionLabel.text = nil
-        self.periodLabel.text = nil
-        self.descriptionLabel.text = nil
-    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = #imageLiteral(resourceName: "more_bg").resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0))
         self.moreButton.setBackgroundImage(image, for: .normal)
         self.moreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
-        // Initialization code
+        self.itemTitleLabel.text = nil
+        self.versionLabel.text = nil
+        self.periodLabel.text = nil
+        self.descriptionLabel.text = nil
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
