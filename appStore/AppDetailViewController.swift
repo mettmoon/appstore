@@ -272,6 +272,7 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.moreButton.isHidden = self.isDescriptionOpen
             cell.descriptionLabel.numberOfLines = self.isDescriptionOpen ? 0 : 3
         }else if let cell = cell as? AppDetailUpdateTableViewCell {
+            cell.itemTitleLabel.text = "What's New"
             cell.descriptionLabel.text = appDetailInfo?["releaseNotes"] as? String
             cell.moreButton.isHidden = self.isUpdateDescriptionOpen
             cell.descriptionLabel.numberOfLines = self.isUpdateDescriptionOpen ? 0 : 3
@@ -388,17 +389,16 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var targetValue:CGFloat = 0
-        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppDetailTopTableViewCell {
+        if scrollView == self.tableView, let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AppDetailTopTableViewCell {
             let point = CGPoint(x: 0, y: cell.appActionButton.frame.minY)
             let value = cell.convert(point, to: self.tableView)
-            targetValue = value.y - self.tableView.safeAreaInsets.top
-        }
-        if !showIconOnNavigationBar, scrollView.contentOffset.y > targetValue {
-            showIconOnNavigationBar = true
-            
-        }else if showIconOnNavigationBar, scrollView.contentOffset.y < targetValue {
-            showIconOnNavigationBar = false
+            let targetValue = value.y - self.tableView.safeAreaInsets.top
+            if !showIconOnNavigationBar, scrollView.contentOffset.y > targetValue {
+                showIconOnNavigationBar = true
+                
+            }else if showIconOnNavigationBar, scrollView.contentOffset.y < targetValue {
+                showIconOnNavigationBar = false
+            }
         }
     }
     
