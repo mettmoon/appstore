@@ -8,8 +8,23 @@
 
 import UIKit
 
-class AppDetailUpdateTableViewCell: UITableViewCell {
+protocol AppDetailUpdateTableViewCellDelegate {
+    var isUpdateDescriptionOpen:Bool {get set}
+    func appDetailUpdateTableViewCellDidMoreButtonAction(cell:AppDetailUpdateTableViewCell)
+}
 
+class AppDetailUpdateTableViewCell: UITableViewCell {
+    var delegate:AppDetailUpdateTableViewCellDelegate?
+    
+    @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var itemTitleLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var periodLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        self.delegate?.appDetailUpdateTableViewCellDidMoreButtonAction(cell: self)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +36,12 @@ class AppDetailUpdateTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+extension AppDetailViewController: AppDetailUpdateTableViewCellDelegate {
+    func appDetailUpdateTableViewCellDidMoreButtonAction(cell: AppDetailUpdateTableViewCell) {
+        self.isUpdateDescriptionOpen = true
+        let indexPath = IndexPath(row: 0, section: 4)
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
 }

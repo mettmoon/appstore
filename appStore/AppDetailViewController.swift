@@ -15,6 +15,7 @@ class AppDetailViewController: UIViewController {
     var screenshotImages:[UIImage]?
     var screenshotFlowLayout:PagingFlowLayout?
     var isDescriptionOpen = false
+    var isUpdateDescriptionOpen = false
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,11 +107,13 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             return self.tableView.dequeueReusableCell(withIdentifier: "Screenshot List", for: indexPath)
         }else if indexPath.section == 3{
             return self.tableView.dequeueReusableCell(withIdentifier: "Description", for: indexPath)
+        }else if indexPath.section == 4 {
+            return self.tableView.dequeueReusableCell(withIdentifier: "Update", for: indexPath)
         }
         return UITableViewCell()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.appDetailInfo == nil ? 1 : 4
+        return self.appDetailInfo == nil ? 1 : 5
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -164,6 +167,20 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.moreButton.isHidden = self.isDescriptionOpen
             cell.descriptionLabel.numberOfLines = self.isDescriptionOpen ? 0 : 3
             cell.descriptionLabel.text = appDetailInfo?["description"] as? String
+        }else if let cell = cell as? AppDetailUpdateTableViewCell {
+            cell.delegate = self
+            cell.moreButton.isHidden = self.isUpdateDescriptionOpen
+            cell.descriptionLabel.numberOfLines = self.isUpdateDescriptionOpen ? 0 : 3
+            cell.descriptionLabel.text = appDetailInfo?["releaseNotes"] as? String
+            cell.versionLabel.text = appDetailInfo?["version"] as? String
+            if let dateString = appDetailInfo?["currentVersionReleaseDate"] as? String {
+                let dateFormmater = DateFormatter()
+                dateFormmater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                let date = dateFormmater.date(from: dateString)
+                cell.periodLabel.text = date?.timeAgoSinceDate(numericDates: true)
+            }else{
+                cell.periodLabel.text = nil
+            }
         }
         
         return cell
@@ -186,3 +203,72 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
+fileprivate extension Date {
+    //참고함..
+    //https://gist.github.com/minorbug/468790060810e0d29545
+    func timeAgoSinceDate(numericDates:Bool) -> String {
+        let calendar = NSCalendar.current
+        let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
+        let now = Date()
+        let earliest = now < self ? now : self
+        let latest = (earliest == now) ? self : now
+        let components = calendar.dateComponents(unitFlags, from: earliest,  to: latest)
+        
+        if (components.year! >= 2) {
+            return "\(components.year!) years ago"
+        } else if (components.year! >= 1){
+            if (numericDates){
+                return "1 year ago"
+            } else {
+                return "Last year"
+            }
+        } else if (components.month! >= 2) {
+            return "\(components.month!) months ago"
+        } else if (components.month! >= 1){
+            if (numericDates){
+                return "1 month ago"
+            } else {
+                return "Last month"
+            }
+        } else if (components.weekOfYear! >= 2) {
+            return "\(components.weekOfYear!) weeks ago"
+        } else if (components.weekOfYear! >= 1){
+            if (numericDates){
+                return "1 week ago"
+            } else {
+                return "Last week"
+            }
+        } else if (components.day! >= 2) {
+            return "\(components.day!) days ago"
+        } else if (components.day! >= 1){
+            if (numericDates){
+                return "1 day ago"
+            } else {
+                return "Yesterday"
+            }
+        } else if (components.hour! >= 2) {
+            return "\(components.hour!) hours ago"
+        } else if (components.hour! >= 1){
+            if (numericDates){
+                return "1 hour ago"
+            } else {
+                return "An hour ago"
+            }
+        } else if (components.minute! >= 2) {
+            return "\(components.minute!) minutes ago"
+        } else if (components.minute! >= 1){
+            if (numericDates){
+                return "1 minute ago"
+            } else {
+                return "A minute ago"
+            }
+        } else if (components.second! >= 3) {
+            return "\(components.second!) seconds ago"
+        } else {
+            return "Just now"
+        }
+        
+    }
+    
+
+}
