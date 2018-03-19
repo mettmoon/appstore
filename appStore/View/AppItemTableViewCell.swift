@@ -11,7 +11,6 @@ protocol AppItemTableViewCellDelegate:class {
     func didSelectRightButton(cell:AppItemTableViewCell)
 }
 class AppItemTableViewCell: UITableViewCell {
-    let queue = SerialOperationQueue()
     weak var delegate:AppItemTableViewCellDelegate?
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
