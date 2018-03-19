@@ -424,7 +424,7 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 fileprivate extension Date {
-    //
+    // 몇일전 표시하기 위한 유틸
     //refer URL:https://gist.github.com/minorbug/468790060810e0d29545
     func timeAgoSinceDate(numericDates:Bool) -> String {
         let calendar = NSCalendar.current
