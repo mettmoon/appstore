@@ -149,12 +149,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="118-zk-VA5">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="118-zk-VA5">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Description" rowHeight="82" id="gew-VU-3dq" customClass="AppDetailDescriptionTableViewCell" customModule="appStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="82"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gew-VU-3dq" id="dRR-1u-2sb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNh-AP-9yr">
+                                                    <rect key="frame" x="15" y="11" width="345" height="60"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QK-3J-Q2T">
+                                                    <rect key="frame" x="324" y="41" width="36" height="30"/>
+                                                    <state key="normal" title="more"/>
+                                                    <connections>
+                                                        <action selector="moreButtonAction:" destination="gew-VU-3dq" eventType="touchUpInside" id="qVE-Dg-T9R"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9QK-3J-Q2T" firstAttribute="bottom" secondItem="dRR-1u-2sb" secondAttribute="bottomMargin" id="6e3-L8-crv"/>
+                                                <constraint firstItem="hNh-AP-9yr" firstAttribute="top" secondItem="dRR-1u-2sb" secondAttribute="topMargin" id="ClC-F0-7q2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9QK-3J-Q2T" secondAttribute="trailing" id="HFP-Ef-PkJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hNh-AP-9yr" secondAttribute="bottom" id="Kub-4u-3bO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hNh-AP-9yr" secondAttribute="trailing" id="TLq-xP-EeG"/>
+                                                <constraint firstItem="hNh-AP-9yr" firstAttribute="leading" secondItem="dRR-1u-2sb" secondAttribute="leadingMargin" id="by8-Et-GRB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="hNh-AP-9yr" id="6R4-hR-evW"/>
+                                            <outlet property="moreButton" destination="9QK-3J-Q2T" id="haf-1w-s5J"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Top" rowHeight="148" id="R7y-qS-2rA" customClass="AppDetailTopTableViewCell" customModule="appStore" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="148"/>
+                                        <rect key="frame" x="0.0" y="110" width="375" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R7y-qS-2rA" id="mLo-Hd-EBA">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
@@ -228,7 +263,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Rating" rowHeight="55" id="Rx4-vy-GWu" customClass="AppDetailRatingTableViewCell" customModule="appStore" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="176" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="258" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rx4-vy-GWu" id="0Uq-mN-uMC">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -434,7 +469,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Screenshot List" rowHeight="440" id="dhu-PM-Yy6" customClass="AppDetailScreenshotListTableViewCell" customModule="appStore" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="231" width="375" height="440"/>
+                                        <rect key="frame" x="0.0" y="313" width="375" height="440"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dhu-PM-Yy6" id="Ksw-ub-E19">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>

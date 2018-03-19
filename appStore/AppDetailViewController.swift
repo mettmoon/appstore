@@ -14,6 +14,7 @@ class AppDetailViewController: UIViewController {
     var appIconImage:UIImage?
     var screenshotImages:[UIImage]?
     var screenshotFlowLayout:PagingFlowLayout?
+    var isDescriptionOpen = false
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,7 @@ class AppDetailViewController: UIViewController {
             _ = semaphore.wait(timeout: DispatchTime.distantFuture)
             DispatchQueue.main.async {
                 self.screenshotImages = images
-                self.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
 
             }
         }
@@ -97,20 +98,22 @@ class AppDetailViewController: UIViewController {
 }
 extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func reuseCell(for indexPath:IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return self.tableView.dequeueReusableCell(withIdentifier: "Top", for: indexPath)
-        }else if indexPath.row == 1{
+        }else if indexPath.section == 1{
             return self.tableView.dequeueReusableCell(withIdentifier: "Rating", for: indexPath)
-        }else if indexPath.row == 2{
+        }else if indexPath.section == 2{
             return self.tableView.dequeueReusableCell(withIdentifier: "Screenshot List", for: indexPath)
+        }else if indexPath.section == 3{
+            return self.tableView.dequeueReusableCell(withIdentifier: "Description", for: indexPath)
         }
         return UITableViewCell()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.appDetailInfo == nil ? 1 : 4
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.reuseCell(for: indexPath)
@@ -156,6 +159,11 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 self.screenshotFlowLayout?.scrollDirection = layout.scrollDirection
             }
             
+        }else if let cell = cell as? AppDetailDescriptionTableViewCell {
+            cell.delegate = self
+            cell.moreButton.isHidden = self.isDescriptionOpen
+            cell.descriptionLabel.numberOfLines = self.isDescriptionOpen ? 0 : 3
+            cell.descriptionLabel.text = appDetailInfo?["description"] as? String
         }
         
         return cell
@@ -163,35 +171,6 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-
-extension AppDetailViewController : AppDetailTopTableViewCellDelegate {
-    func appDetailTopTableViewCellDidAction(cell: AppDetailTopTableViewCell) {
-        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
-            UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
-                print("finished")
-            })
-        }
-    }
-    func appDetailTopTableViewCellDidSubAction(cell: AppDetailTopTableViewCell) {
-        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
-            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            ac.addAction(UIAlertAction(title: "공유", style: .default, handler: { (action) in
-                self.shareAction(url)
-            }))
-            ac.addAction(UIAlertAction(title: "앱스토어로 가기", style: .default, handler: { (action) in
-                UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
-                    print("finished")
-                })
-            }))
-            ac.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-            self.present(ac, animated: true, completion: nil)
-        }
-    }
-    func shareAction(_ url:URL){
-        let avc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        self.present(avc, animated: true, completion: nil)
-    }
-}
 extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.screenshotImages == nil ? 0 : 1
@@ -206,16 +185,4 @@ extension AppDetailViewController: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
 }
-class PagingFlowLayout: UICollectionViewFlowLayout {
-    var pagingLeftMargin:CGFloat = 20//페이징시 좌측 여백(살짝보이기)
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let contentOffset = collectionView?.contentOffset else {return proposedContentOffset}
-        var index = Int(floor(contentOffset.x / (self.itemSize.width + self.minimumLineSpacing)))
-        if contentOffset.x < proposedContentOffset.x {
-            //우로 이동중
-            index += 1
-        }
-        let targetX = CGFloat(index) * (self.itemSize.width + self.minimumLineSpacing) + self.sectionInset.left - pagingLeftMargin
-        return CGPoint(x: targetX, y: proposedContentOffset.y)
-    }
-}
+

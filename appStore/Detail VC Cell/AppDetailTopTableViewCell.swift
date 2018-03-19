@@ -51,3 +51,31 @@ class AppDetailTopTableViewCell: UITableViewCell {
     }
 
 }
+extension AppDetailViewController : AppDetailTopTableViewCellDelegate {
+    func appDetailTopTableViewCellDidAction(cell: AppDetailTopTableViewCell) {
+        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
+                print("finished")
+            })
+        }
+    }
+    func appDetailTopTableViewCellDidSubAction(cell: AppDetailTopTableViewCell) {
+        if let urlString = self.appDetailInfo?["trackViewUrl"] as? String, let url = URL(string:urlString) {
+            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "공유", style: .default, handler: { (action) in
+                self.shareAction(url)
+            }))
+            ac.addAction(UIAlertAction(title: "앱스토어로 가기", style: .default, handler: { (action) in
+                UIApplication.shared.open(url, options: [:], completionHandler: { (finish) in
+                    print("finished")
+                })
+            }))
+            ac.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            self.present(ac, animated: true, completion: nil)
+        }
+    }
+    func shareAction(_ url:URL){
+        let avc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        self.present(avc, animated: true, completion: nil)
+    }
+}
