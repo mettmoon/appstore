@@ -121,13 +121,30 @@
                                     <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="GfB-OO-Teu"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eid-MM-P7B">
+                                <rect key="frame" x="0.0" y="140" width="375" height="672"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UwX-iI-3ud">
+                                        <rect key="frame" x="177" y="326" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="UwX-iI-3ud" firstAttribute="centerY" secondItem="Eid-MM-P7B" secondAttribute="centerY" id="6s6-vn-g81"/>
+                                    <constraint firstItem="UwX-iI-3ud" firstAttribute="centerX" secondItem="Eid-MM-P7B" secondAttribute="centerX" id="deh-OY-IxZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Eid-MM-P7B" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9Lc-BU-NYz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gqq-RV-0wD" secondAttribute="trailing" id="FO0-MO-6qO"/>
                             <constraint firstItem="Gqq-RV-0wD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HhI-Oc-Nev"/>
                             <constraint firstAttribute="bottom" secondItem="Gqq-RV-0wD" secondAttribute="bottom" id="LwK-Hf-VT8"/>
+                            <constraint firstItem="Eid-MM-P7B" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="UBh-Gq-Gl8"/>
                             <constraint firstItem="Gqq-RV-0wD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VoF-CM-TKC"/>
+                            <constraint firstItem="Eid-MM-P7B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="amQ-pl-vdr"/>
+                            <constraint firstAttribute="bottom" secondItem="Eid-MM-P7B" secondAttribute="bottom" id="lnN-21-Q21"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -135,6 +152,8 @@
                         <barButtonItem key="backBarButtonItem" title="뒤로" id="eDj-th-N0A"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadIndicatorGroupView" destination="Eid-MM-P7B" id="Z1G-jn-y8r"/>
+                        <outlet property="loadIndicatorView" destination="UwX-iI-3ud" id="JAw-gr-gai"/>
                         <outlet property="tableView" destination="Gqq-RV-0wD" id="9sO-GD-iuV"/>
                     </connections>
                 </viewController>

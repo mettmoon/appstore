@@ -10,7 +10,9 @@ import UIKit
 class AppListViewController: UIViewController {
     var items:[AppListInfo] = []
     var images:[URL: UIImage] = [:]
+    @IBOutlet weak var loadIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadIndicatorGroupView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadData()
@@ -31,6 +33,14 @@ class AppListViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.items = result.feed.entry
                     self.tableView.reloadData()
+                    UIView.animate(withDuration: 0.35, animations: {
+                        self.loadIndicatorGroupView.alpha = 0
+                    }, completion: { (finish) in
+                        if finish {
+                            self.loadIndicatorView.stopAnimating()
+                            self.loadIndicatorGroupView.isHidden = true
+                        }
+                    })
                 }
             }catch {
                 return
