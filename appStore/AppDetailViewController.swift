@@ -125,7 +125,10 @@ class AppDetailViewController: UIViewController {
             _ = semaphore.wait(timeout: DispatchTime.distantFuture)
             DispatchQueue.main.async {
                 self.screenshotImages = images
-                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+                if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? AppDetailScreenshotListTableViewCell {
+                    cell.collectionView.reloadData()
+                }
+                
                 self.successLoadImageCompletion?(images)
 
             }
