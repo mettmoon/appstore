@@ -50,6 +50,10 @@ class AppDetailViewController: UIViewController {
                         cell.alpha = 1
                     }
 
+                }, completion: { (finished) in
+                    if finished {
+                        self.titleView.isHidden = true
+                    }
                 })
 
             }
