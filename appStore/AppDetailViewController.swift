@@ -262,18 +262,6 @@ extension AppDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.subTitleLabel.text = "iPhone"
             cell.collectionView.dataSource = self
             cell.collectionView.delegate = self
-            if let flowlayout = self.screenshotFlowLayout {
-                cell.collectionView.collectionViewLayout = flowlayout
-
-            }else if let layout = cell.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                self.screenshotFlowLayout = PagingFlowLayout()
-                self.screenshotFlowLayout?.itemSize = layout.itemSize
-                self.screenshotFlowLayout?.minimumLineSpacing = layout.minimumLineSpacing
-                self.screenshotFlowLayout?.minimumInteritemSpacing = layout.minimumInteritemSpacing
-                self.screenshotFlowLayout?.sectionInset = layout.sectionInset
-                self.screenshotFlowLayout?.scrollDirection = layout.scrollDirection
-            }
-            
         }else if let cell = cell as? AppDetailDescriptionTableViewCell {
             cell.descriptionLabel.text = appDetailInfo?["description"] as? String
             cell.moreButton.isHidden = self.isDescriptionOpen
